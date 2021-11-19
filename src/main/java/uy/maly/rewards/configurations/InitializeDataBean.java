@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 
 import uy.maly.rewards.models.Customer;
 import uy.maly.rewards.models.Transaction;
-import uy.maly.rewards.repositories.ICustomerRepository;
-import uy.maly.rewards.repositories.ITransactionRepository;
+import uy.maly.rewards.repositories.CustomerRepository;
+import uy.maly.rewards.repositories.TransactionRepository;
 
 @Component
 public class InitializeDataBean {
 
 	@Bean
-	public CommandLineRunner demo(ITransactionRepository iTransactionRepository,
-			ICustomerRepository iCustomerRepository) {
+	public CommandLineRunner demo(TransactionRepository iTransactionRepository,
+			CustomerRepository iCustomerRepository) {
 		return (args) -> {
 			Customer customer1 = Customer.builder().familyName("Maly").name("Javier").build();
 			Customer customer2 = Customer.builder().familyName("Doe").name("John").build();

@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TransactionsController implements ITransactionsApi {
+public class TransactionsController implements TransactionsApi {
 
 	@Override
 	public ResponseEntity<String> getTransactions(Long customerId) {

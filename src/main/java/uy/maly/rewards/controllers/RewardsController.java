@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RewardsController implements IRewardsApi{
+public class RewardsController implements RewardsApi{
 	
 	private static final Logger log = LoggerFactory.getLogger(RewardsController.class);
 
