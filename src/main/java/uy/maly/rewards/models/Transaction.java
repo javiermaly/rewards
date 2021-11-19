@@ -1,8 +1,10 @@
 package uy.maly.rewards.models;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,16 +27,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "transaction")
-public class Transaction {
+public class Transaction implements Scored {
 	@Id
 	@SequenceGenerator(name = "transaction_generator", sequenceName = "transction_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_generator")
 	private Long id;
-	@ManyToOne
-	@JoinColumn(name = "transaction_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;
 	private float amount;
+	
+	@Override
+	public int getMonth() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.getTransactionDate());
+		int month = cal.get(Calendar.MONTH) + 1;
+		return month;
+	}
 
+	@Override
+	public int getScore() {
+		int points = (int) (this.amount > 100 ? 2 * (Math.round(this.amount) - 100) : 0);
+		points += this.amount > 50 ? Math.round(this.amount) - 50 : 0;
+		return points;
+	}
+	
 }
