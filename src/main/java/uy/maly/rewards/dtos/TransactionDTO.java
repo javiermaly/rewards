@@ -15,5 +15,5 @@ public class TransactionDTO {
 	@NonNull
 	private Date transactionDate;
 	@NonNull
-	private float amount;
+	private Float amount;
 }

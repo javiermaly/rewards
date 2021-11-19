@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uy.maly.rewards.dtos.CustomerDTO;
@@ -16,8 +15,12 @@ import uy.maly.rewards.repositories.CustomerRepository;
 public class CustomerService implements ICustomer{
 	
 	private static final String CUSTOMER_NOT_FOUND = "Customer not found.";
-	@Autowired
+	
 	private CustomerRepository iCustomerRepository;
+	
+	public CustomerService(CustomerRepository iCustomerRepository) {
+		this.iCustomerRepository = iCustomerRepository;
+	}
 
 	@Override
 	public CustomerDTO getCustomer(Long customerId) {
