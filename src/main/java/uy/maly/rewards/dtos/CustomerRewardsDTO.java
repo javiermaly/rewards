@@ -1,5 +1,7 @@
 package uy.maly.rewards.dtos;
 
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,6 +9,7 @@ import lombok.Data;
 @Builder
 public class CustomerRewardsDTO {
 	private CustomerDTO customer;
-	private RewardsDTO rewards;
+	private int total;
+	private List<RewardsDTO> rewards;
 
 }

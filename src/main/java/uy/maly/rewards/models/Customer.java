@@ -40,8 +40,8 @@ public class Customer {
 	private String familyName;
 	@NonNull
 	private String name;
-    @OneToMany(mappedBy="customer")
-	private Set<Transaction> transactions;
-	
+//    @OneToMany(mappedBy="customer", fetch = FetchType.LAZY)
+//	private Set<Transaction> transactions;
+//	
 	
 }

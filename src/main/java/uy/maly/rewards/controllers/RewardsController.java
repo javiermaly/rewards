@@ -32,8 +32,7 @@ public class RewardsController implements RewardsApi{
 
 	@Override
 	public ResponseEntity<List<CustomerRewardsDTO>> getRewards() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ResponseEntity<List<CustomerRewardsDTO>>(iRewards.getRewards(), HttpStatus.OK);
 	}
 	
 

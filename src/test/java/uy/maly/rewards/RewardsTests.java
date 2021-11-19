@@ -1,7 +1,5 @@
 package uy.maly.rewards;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import java.util.Date;
 import java.util.Optional;
 
