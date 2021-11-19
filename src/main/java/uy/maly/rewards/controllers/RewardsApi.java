@@ -1,13 +1,18 @@
 package uy.maly.rewards.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import uy.maly.rewards.dtos.RewardsDTO;
+
 public interface RewardsApi {
 	
     @RequestMapping(value = "/rewards/{customerId}", method = RequestMethod.GET)
-	ResponseEntity<String> getRewards(@PathVariable("customerId") Long customerId);
+	ResponseEntity<List<RewardsDTO>> getRewards(@PathVariable("customerId") Long customerId);
+    
 
 }

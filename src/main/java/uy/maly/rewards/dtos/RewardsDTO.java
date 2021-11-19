@@ -8,5 +8,6 @@ import uy.maly.rewards.dtos.CustomerDTO.CustomerDTOBuilder;
 @Data
 @Builder
 public class RewardsDTO {
+	
 
 }
