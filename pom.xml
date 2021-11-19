@@ -72,10 +72,11 @@
 			<version>2.9.2</version>
 		</dependency>
 
-		
+
 	</dependencies>
 
 	<build>
+		<finalName>rewards</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

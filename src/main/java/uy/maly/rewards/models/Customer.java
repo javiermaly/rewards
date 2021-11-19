@@ -1,15 +1,11 @@
 package uy.maly.rewards.models;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,8 +36,5 @@ public class Customer {
 	private String familyName;
 	@NonNull
 	private String name;
-//    @OneToMany(mappedBy="customer", fetch = FetchType.LAZY)
-//	private Set<Transaction> transactions;
-//	
 	
 }

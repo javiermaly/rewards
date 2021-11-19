@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import uy.maly.rewards.dtos.TransactionDTO;
@@ -16,6 +18,8 @@ import uy.maly.rewards.repositories.TransactionRepository;
 
 @Service
 public class TransactionService implements ITransaction {
+
+	private static final Logger log = LoggerFactory.getLogger(TransactionService.class);
 
 	private static final String CUSTOMER_NOT_FOUND = "Customer not found.";
 	private static final String TRANSACTION_NOT_FOUND = "Transaction not found.";
@@ -31,6 +35,7 @@ public class TransactionService implements ITransaction {
 
 	@Override
 	public List<TransactionDTO> getTransactions(Long customerId) {
+		log.info("getTransactions" + customerId);
 		List<TransactionDTO> transactions = new ArrayList<TransactionDTO>();
 		Optional<Customer> customer = customerRepository.findById(customerId);
 		if (!customer.isPresent()) {
@@ -44,6 +49,7 @@ public class TransactionService implements ITransaction {
 
 	@Override
 	public TransactionDTO createTransaction(TransactionDTO dto) {
+		log.info("createTransaction" + dto.toString());
 		Optional<Customer> customer = customerRepository.findById(dto.getCustomerId());
 		if (!customer.isPresent()) {
 			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
@@ -59,6 +65,7 @@ public class TransactionService implements ITransaction {
 
 	@Override
 	public TransactionDTO updateTransaction(Long transactionId, TransactionDTO dto) {
+		log.info("updateTransaction: " + dto.toString() + " transactionId: " + transactionId);
 		Optional<Transaction> tr = transactionRepository.findById(transactionId);
 		Transaction t;
 		if (!tr.isPresent()) {

@@ -8,19 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import uy.maly.rewards.controllers.RewardsController;
 import uy.maly.rewards.dtos.CustomerDTO;
-import uy.maly.rewards.dtos.TransactionDTO;
 import uy.maly.rewards.exceptions.Rewards400Exception;
 import uy.maly.rewards.models.Customer;
-import uy.maly.rewards.models.Transaction;
 import uy.maly.rewards.repositories.CustomerRepository;
 
 @Service
 public class CustomerService implements ICustomer {
 	
 	private static final Logger log = LoggerFactory.getLogger(CustomerService.class);
-
 
 	private static final String EXISTENT_CUSTOMER = "Existent customer.";
 
@@ -34,6 +30,7 @@ public class CustomerService implements ICustomer {
 
 	@Override
 	public CustomerDTO getCustomer(Long customerId) {
+		log.info("getCustomer: " + customerId);
 		Optional<Customer> c = iCustomerRepository.findById(customerId);
 		if (!c.isPresent()) {
 			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
@@ -44,6 +41,7 @@ public class CustomerService implements ICustomer {
 
 	@Override
 	public List<CustomerDTO> getCustomers() {
+		log.info("getCustomers");
 		List<CustomerDTO> customers = new ArrayList<>();
 		iCustomerRepository.findAll().forEach(x -> {
 			customers.add(buildCustomerDTOFromCustomer(x));
@@ -53,6 +51,7 @@ public class CustomerService implements ICustomer {
 
 	@Override
 	public CustomerDTO createCustomer(CustomerDTO dto) {
+		log.info("createCustomer: " + dto.toString());
 		Optional<Customer> c = iCustomerRepository.findByUsername(dto.getUsername());
 		Customer cus;
 		if (c.isPresent()) {

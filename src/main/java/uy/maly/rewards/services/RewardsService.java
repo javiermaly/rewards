@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -41,6 +40,7 @@ public class RewardsService implements IRewards {
 
 	@Override
 	public List<RewardsDTO> getRewardsForCostumer(Long customerId) {
+		log.info("getRewardsForCostumer" + customerId);
 		Optional<Customer> c = customerRepository.findById(customerId);
 		if (!c.isPresent()) {
 			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
@@ -56,6 +56,8 @@ public class RewardsService implements IRewards {
 
 	@Override
 	public List<CustomerRewardsDTO> getRewards() {
+		log.info("getRewards");
+
 		try {
 			List<Customer> customers = customerRepository.findAll();
 			List<CustomerRewardsDTO> rewards = new ArrayList<CustomerRewardsDTO>();
@@ -69,17 +71,20 @@ public class RewardsService implements IRewards {
 			});
 			return rewards;
 		} catch (Exception e) {
+			log.error("getRewards: " + e.getMessage());
 			e.printStackTrace();
 			throw new Rewards500Exception(e.getMessage());
 		}
 	}
 
 	private List<RewardsDTO> rewardsByCustomer(Customer c) {
+		log.info("rewardsByCustomer: " + c.toString());
 		List<RewardsDTO> rewards = new ArrayList<RewardsDTO>();
 		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(today);
-		cal.add(Calendar.MONTH, -3);
+		cal.add(Calendar.MONTH, - 2);
+		cal.set(Calendar.DATE, 1);
 		List<Transaction> transactions = transactionRepository.findByCustomerAndDate(c, cal.getTime());
 		// Grouping Transactions by month
 		Map<Integer, List<Transaction>> transactionsPerMonth = transactions.stream()
