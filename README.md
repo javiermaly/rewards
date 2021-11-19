@@ -3,7 +3,7 @@
 # Api-docs (Swagger)
 http://localhost:8080/oa/swagger-ui.html
 
-#Run tests
+# Run tests
 mvn package
 
 This will package the app and run the tests.
