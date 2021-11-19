@@ -38,8 +38,8 @@ public class Transaction implements Scored {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;
 	private float amount;
-
 	
+	@Override
 	public int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.getTransactionDate());
@@ -47,14 +47,10 @@ public class Transaction implements Scored {
 		return month;
 	}
 
-
 	@Override
 	public int getScore() {
 		int points = (int) (this.amount > 100 ? 2 * (Math.round(this.amount) - 100) : 0);
 		points += this.amount > 50 ? Math.round(this.amount) - 50 : 0;
-		
-//		int points = this.amount > 50 ? Math.min(50, Math.round( 1 * (this.amount - 50) ) ) : 0;
-//		points += this.amount > 100 ? 2 * (this.amount - 100) : 0;
 		return points;
 	}
 	
