@@ -8,4 +8,6 @@ public interface ICustomer {
 
 	CustomerDTO getCustomer(Long customerId);
 	List<CustomerDTO> getCustomers();
+	CustomerDTO createCustomer(CustomerDTO dto);
+	
 }

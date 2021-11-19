@@ -22,8 +22,7 @@ public class InitializeDataBean {
 			Customer customer1 = Customer.builder().familyName("Maly").name("Javier").username("jmaly").build();
 			Customer customer2 = Customer.builder().familyName("Doe").name("John").username("jdoe").build();
 			iCustomerRepository.save(customer1);
-			iCustomerRepository.save(customer2);
-			
+			iCustomerRepository.save(customer2);	
 			for(int i=1; i<=20; i ++) {
 				if( i % 2 == 0) {
 					Transaction t = Transaction.builder().customer(customer1).transactionDate(new Date()).amount(getRandomFloat()).build();
@@ -34,11 +33,6 @@ public class InitializeDataBean {
 					iTransactionRepository.save(t);
 				}
 			}
-			
-			iTransactionRepository.findAll().forEach(x->{
-				System.out.println(x.getCustomer().getFamilyName());
-			});
-			
 		};
 	}
 	

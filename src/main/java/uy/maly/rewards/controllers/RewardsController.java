@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import uy.maly.rewards.dtos.CustomerDTO;
+import uy.maly.rewards.dtos.CustomerRewardsDTO;
 import uy.maly.rewards.dtos.RewardsDTO;
 import uy.maly.rewards.services.ICustomer;
 import uy.maly.rewards.services.IRewards;
@@ -19,20 +20,24 @@ public class RewardsController implements RewardsApi{
 	private static final Logger log = LoggerFactory.getLogger(RewardsController.class);
 	
 	private IRewards iRewards;
-	private ICustomer iCustomer;
 	
 	public RewardsController(IRewards iRewards) {
 		this.iRewards = iRewards;
 	}
-	
 
 	@Override
-	public ResponseEntity<List<RewardsDTO>> getRewards(Long customerId) {
-		log.info(customerId.toString());
-		return null;
-		
-
+	public ResponseEntity<List<RewardsDTO>> getRewardsForCostumer(Long customerId) {
+		return new ResponseEntity<List<RewardsDTO>>(iRewards.getRewardsForCostumer(customerId), HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<List<CustomerRewardsDTO>> getRewards() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+	
 
 
 

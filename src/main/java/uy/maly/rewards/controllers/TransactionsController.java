@@ -21,8 +21,6 @@ public class TransactionsController implements TransactionsApi {
 
 	private ITransaction iTransaction;
 
-	private ICustomer iCustomer;
-
 	public TransactionsController(ITransaction iTransaction) {
 		this.iTransaction = iTransaction;
 	}
@@ -44,6 +42,22 @@ public class TransactionsController implements TransactionsApi {
 		try {
 			return new ResponseEntity<TransactionDTO>(iTransaction.createTransaction(dto), HttpStatus.OK);
 
+		} catch (Rewards400Exception e) {
+			log.info(e.getMessage());
+			return new ResponseEntity<TransactionDTO>(HttpStatus.NOT_FOUND);
+		} catch (Rewards500Exception e) {
+			log.info(e.getMessage());
+			return new ResponseEntity<TransactionDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<TransactionDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Override
+	public ResponseEntity<TransactionDTO> updateTransaction(Long transactionId, TransactionDTO dto) {
+		try {
+			return new ResponseEntity<TransactionDTO>(iTransaction.updateTransaction(transactionId, dto),
+					HttpStatus.OK);
 		} catch (Rewards400Exception e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<TransactionDTO>(HttpStatus.NOT_FOUND);

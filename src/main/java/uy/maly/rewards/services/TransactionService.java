@@ -18,6 +18,7 @@ import uy.maly.rewards.repositories.TransactionRepository;
 public class TransactionService implements ITransaction {
 
 	private static final String CUSTOMER_NOT_FOUND = "Customer not found.";
+	private static final String TRANSACTION_NOT_FOUND = "Transaction not found.";
 
 	private TransactionRepository transactionRepository;
 
@@ -48,16 +49,36 @@ public class TransactionService implements ITransaction {
 			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
 		}
 		try {
-			Transaction t = transactionRepository.save(Transaction.builder().amount(dto.getAmount()).customer(customer.get()).transactionDate(dto.getTransactionDate()).build());
+			Transaction t = transactionRepository.save(Transaction.builder().amount(dto.getAmount())
+					.customer(customer.get()).transactionDate(dto.getTransactionDate()).build());
 			return buildTransactionDTOFromTransaction(t);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new Rewards500Exception("Error saving transaction: " + e.getMessage());
 		}
 	}
 
+	@Override
+	public TransactionDTO updateTransaction(Long transactionId, TransactionDTO dto) {
+		Optional<Transaction> tr = transactionRepository.findById(transactionId);
+		Transaction t;
+		if (!tr.isPresent()) {
+			throw new Rewards400Exception(TRANSACTION_NOT_FOUND);
+		}
+		Optional<Customer> customer = customerRepository.findById(dto.getCustomerId());
+		if (!customer.isPresent()) {
+			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
+		}
+		t = tr.get();
+		t.setAmount(dto.getAmount());
+		t.setTransactionDate(dto.getTransactionDate());
+		t.setCustomer(customer.get());
+		t = transactionRepository.save(t);
+		return buildTransactionDTOFromTransaction(t);
+	}
+
 	private TransactionDTO buildTransactionDTOFromTransaction(Transaction t) {
-		return TransactionDTO.builder().amount(t.getAmount()).customerId(t.getCustomer().getId())
-				.transactionDate(t.getTransactionDate()).build();
+		return TransactionDTO.builder().transactionId(t.getId()).amount(t.getAmount())
+				.customerId(t.getCustomer().getId()).transactionDate(t.getTransactionDate()).build();
 	}
 
 }

@@ -9,4 +9,6 @@ public interface ITransaction {
 	List<TransactionDTO> getTransactions(Long customerId);
 	
 	TransactionDTO createTransaction(TransactionDTO dto);
+	
+	TransactionDTO updateTransaction(Long transactionId, TransactionDTO dto);
 }

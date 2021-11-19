@@ -3,6 +3,7 @@ package uy.maly.rewards.models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,8 +31,8 @@ public class Transaction {
 	@SequenceGenerator(name = "transaction_generator", sequenceName = "transction_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_generator")
 	private Long id;
-	@ManyToOne
-	@JoinColumn(name = "transaction_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;

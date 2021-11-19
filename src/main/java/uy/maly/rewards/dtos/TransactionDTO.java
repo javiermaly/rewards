@@ -10,6 +10,7 @@ import uy.maly.rewards.dtos.CustomerDTO.CustomerDTOBuilder;
 @Data
 @Builder
 public class TransactionDTO {
+	private Long transactionId;
 	@NonNull
 	private Long customerId;
 	@NonNull

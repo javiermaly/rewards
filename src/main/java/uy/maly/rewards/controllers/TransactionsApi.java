@@ -17,5 +17,8 @@ public interface TransactionsApi {
 	
 	@RequestMapping(value = "/transactions", method = RequestMethod.POST)
 	ResponseEntity<TransactionDTO> createTransactions(@RequestBody TransactionDTO dto);
+	
+	@RequestMapping(value = "/transactions/{transactionId}", method = RequestMethod.PATCH)
+	ResponseEntity<TransactionDTO> updateTransaction(@PathVariable("transactionId") Long transactionId, @RequestBody TransactionDTO dt);
 
 }

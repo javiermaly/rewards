@@ -9,5 +9,8 @@ import uy.maly.rewards.dtos.CustomerDTO.CustomerDTOBuilder;
 @Builder
 public class RewardsDTO {
 	
+	private int month;
+	private int points;
+	
 
 }
