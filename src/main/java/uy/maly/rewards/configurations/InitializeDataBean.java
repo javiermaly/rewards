@@ -19,8 +19,8 @@ public class InitializeDataBean {
 	public CommandLineRunner demo(TransactionRepository iTransactionRepository,
 			CustomerRepository iCustomerRepository) {
 		return (args) -> {
-			Customer customer1 = Customer.builder().familyName("Maly").name("Javier").build();
-			Customer customer2 = Customer.builder().familyName("Doe").name("John").build();
+			Customer customer1 = Customer.builder().familyName("Maly").name("Javier").username("jmaly").build();
+			Customer customer2 = Customer.builder().familyName("Doe").name("John").username("jdoe").build();
 			iCustomerRepository.save(customer1);
 			iCustomerRepository.save(customer2);
 			

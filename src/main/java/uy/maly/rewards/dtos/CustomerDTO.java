@@ -8,6 +8,8 @@ import lombok.NonNull;
 @Builder
 public class CustomerDTO {
 	private Long id;
+	@NonNull
+	private String username;
 	@NonNull 
 	private String familyName;
 	@NonNull

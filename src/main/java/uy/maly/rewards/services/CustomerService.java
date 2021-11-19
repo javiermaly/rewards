@@ -12,12 +12,12 @@ import uy.maly.rewards.models.Customer;
 import uy.maly.rewards.repositories.CustomerRepository;
 
 @Service
-public class CustomerService implements ICustomer{
-	
+public class CustomerService implements ICustomer {
+
 	private static final String CUSTOMER_NOT_FOUND = "Customer not found.";
-	
+
 	private CustomerRepository iCustomerRepository;
-	
+
 	public CustomerService(CustomerRepository iCustomerRepository) {
 		this.iCustomerRepository = iCustomerRepository;
 	}
@@ -25,17 +25,19 @@ public class CustomerService implements ICustomer{
 	@Override
 	public CustomerDTO getCustomer(Long customerId) {
 		Optional<Customer> c = iCustomerRepository.findById(customerId);
-		if(!c.isPresent()) {
+		if (!c.isPresent()) {
 			throw new Rewards400Exception(CUSTOMER_NOT_FOUND);
 		}
-		return CustomerDTO.builder().familyName(c.get().getFamilyName()).name(c.get().getName()).id(customerId).build();
+		return CustomerDTO.builder().familyName(c.get().getFamilyName()).name(c.get().getName()).id(customerId)
+				.username(c.get().getUsername()).build();
 	}
 
 	@Override
 	public List<CustomerDTO> getCustomers() {
 		List<CustomerDTO> customers = new ArrayList<>();
-		iCustomerRepository.findAll().forEach( x -> {
-			customers.add(CustomerDTO.builder().familyName(x.getFamilyName()).name(x.getName()).id(x.getId()).build());
+		iCustomerRepository.findAll().forEach(x -> {
+			customers.add(CustomerDTO.builder().familyName(x.getFamilyName()).name(x.getName()).id(x.getId())
+					.username(x.getUsername()).build());
 		});
 		return customers;
 	}
